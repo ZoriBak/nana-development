@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Doctor Dashboard</h2>
+
+<div id="doctorData"></div>
+
+<script>
+async function loadData() {
+  const res = await fetch('http://localhost:5000/reports');
+  const data = await res.json();
+
+  const container = document.getElementById('doctorData');
+
+  data.forEach(r => {
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <strong>Report ${r.id}</strong>
+      <p>Spots: ${r.spots.join(', ')}</p>
+      <p>${r.notes}</p>
+      <hr>
+    `;
+    container.appendChild(div);
+  });
+}
+
+loadData();
+</script>
+
+</body>
+</html>
